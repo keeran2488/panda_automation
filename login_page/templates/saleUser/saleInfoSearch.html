@@ -1,0 +1,33 @@
+{% load staticfiles%}
+{% if panda.count > 0 %}
+                      {{% for panda in panda%}
+                        <tr>
+                          <td>{{panda.activation.file}}</td>
+                        <!--   <td>{{panda.activation.active_check}}</td> -->
+
+                          {% if panda.activation.active_check == True %}
+                          <td><span class="label label-danger">Scan</span></td>
+                          {% else %}
+                          <td><span class="label label-info">UnScan</span></td>
+                          {% endif %}
+
+                          {% if panda.user.full_name %}
+                              <td>{{panda.user.full_name}}</td>
+                          {% elif panda.user %}
+                            <td>{{panda.user}}</td>
+                          {% endif %}
+                          
+                          <td>{{panda.date}}</td>
+                          {% if request.user.is_admin %}
+                          <td>
+                            <a href="{% url 'delete_saleInfo' panda.id %}"  class="btn btn-primary a-btn-slide-text center-block link">
+                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                  <span><strong>Delete</strong></span>            
+                            </a>
+                          </td>
+                          {% endif %}
+                        </tr>
+                        {% endfor %}
+{% else %}
+  <p>None Search Item Found..</p>
+{% endif %}

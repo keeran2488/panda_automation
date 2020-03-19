@@ -1,0 +1,62 @@
+
+                        
+                      <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                      <thead style="color: #2C3E50; font-size: 15px;">
+                        <tr>
+                          <th>Upload Date</th>
+                          <th>Code</th>
+                          <th>Product Name</th>
+                          <th>Product Point</th>
+                          <th>Scan Status</th>
+                          <th>Scan Date</th>
+                          {% if request.user.is_admin %}
+                          <th>Action</th>
+                          {% endif %}
+                        </tr>
+                      </thead>
+                      <tbody style="color: #138D75;">
+                        {% for panda in panda%}
+                        <tr>
+                         
+                          <td>{{panda.date}}</td>
+                          <td>{{panda.file}}</td>
+                          <td>{{panda.product_type }}</td>
+                          <!-- {% for product in product %}
+                            {% if product.id == panda.product_type %}
+                              <td>{{panda.product_type }}</td>
+                            {% endif %}
+                          {% endfor %} -->
+                          <td>{{panda.product_type.product_point}}</td>
+                          {% if panda.active_check == True %}
+                          <td><span class="label label-danger">SCAN</span></td>
+                          {% else %}
+                          <td><span class="label label-primary">NEW</span></td>
+                          {% endif %}
+
+                          <td>{{panda.active_date}}</td>
+
+                          {% if request.user.is_admin %}
+                          <td>
+                            <a href="{% url 'delete_activation_batchCode' file=panda.file date=panda.date product_type=panda.product_type.id %}" class="btn btn-primary a-btn-slide-text center-block link">
+                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                  <span><strong>Delete</strong></span>            
+                            </a>
+                          </td>
+                          {%endif%}
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                        </table>
+  
+
+<script type="text/javascript">
+      $(document).ready(function() {
+       
+        $(".link").popConfirm({
+          title: "Delete",
+          content: "Are You Sure?",
+          placement: "bottom"
+        });
+      });
+</script>

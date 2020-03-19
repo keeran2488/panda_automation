@@ -1,0 +1,60 @@
+
+                        
+                      <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                      <thead style="color: #2C3E50; font-size: 15px;">
+                        <tr>
+                          <th>Title</th>
+                          <th>Message</th>
+                          <th>User</th>
+                          <th>Read</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody style="color: #138D75; font-size: 15px;">
+                        {% for panda in panda%}
+                        <tr>
+                          <td>{{panda.message.title}}</td>
+                          <td>{{panda.message.message}}</td>
+                          <td>{{panda.user_Message}}</td>
+                          <td>
+
+                            {% if panda.read_flag %}
+                                <input type="button" class="btn btn-round btn-danger" value="Read"/>
+                            {% endif %}
+                            
+                            {% if panda.read_flag == False %}
+                                <input type="button" class="btn btn-round btn-warning" value="Unread"/>
+                            {% endif %}
+
+                          </td>
+                          {% if request.user.is_admin %}   
+                          <td>
+                            <a href="{% url 'messagingListDeleteByID' panda.id %}" class="btn btn-primary a-btn-slide-text center-block link">
+                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                  <span><strong>Delete</strong></span>            
+                            </a>
+                          </td>
+                          {% endif %}
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                        </table>
+                     
+
+
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        // Basic confirmation
+        // $(".link").popConfirm();
+        
+        // Custom Title, Content and Placement
+        $(".link").popConfirm({
+          title: "Delete",
+          content: "Are You Sure?",
+          placement: "bottom"
+        });
+      });
+    </script>
+

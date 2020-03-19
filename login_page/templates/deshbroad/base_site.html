@@ -1,0 +1,253 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  
+  <meta charset="utf-8">
+  <meta name="description" content="Miminium Admin Template v.1">
+  <meta name="author" content="Isna Nur Azis">
+  <meta name="keyword" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mendim</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+    <!-- start: Css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'asset/css/bootstrap.min.css' %}">
+
+      <!-- plugins -->
+      <!-- <link rel="stylesheet" type="text/css" href="{% static 'asset/css/plugins/font-awesome.min.css' %}"/> -->
+      <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> -->
+
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+      <link rel="stylesheet" type="text/css" href="{% static 'asset/css/plugins/custom.css' %}"/>
+
+      <link rel="stylesheet" type="text/css" href="{% static 'asset/css/plugins/simple-line-icons.css' %}"/>
+      <link rel="stylesheet" type="text/css" href="{% static 'asset/css/plugins/animate.min.css' %}"/>
+      <link rel="stylesheet" type="text/css" href="{% static 'asset/css/plugins/fullcalendar.min.css' %}"/>
+      <link rel="stylesheet" type="text/css" href="{% static 'asset/css/plugins/datatables.bootstrap.min.css' %}"/>
+      <link rel="stylesheet" type="text/css" href="{% static 'asset/css/plugins/dropzone.css' %}"/>
+      <link href="{% static 'asset/css/style.css' %}" rel="stylesheet">
+
+      <link rel="stylesheet" type="text/css" href="{% static 'chosen/chosen.min.css' %}">
+      <script src="{% static 'chosen/chosen.jquery.min.js' %}"></script>
+
+
+  <!-- end: Css -->
+
+  <!-- <link rel="shortcut icon" href="{% static 'asset/img/logomi.png"> -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+      <style type="text/css">
+
+      #left-menu .sub-left-menu .active {
+          border-left: 3px solid #CB4335;
+        }
+        
+        #left-menu .sub-left-menu .active .nav-header{
+          background-color: #117A65;
+          color: white;
+        }
+      </style>
+
+
+  </head>
+
+ <body id="mimin" class="dashboard">
+      <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+          <div class="col-md-12 nav-wrapper">
+            <div class="navbar-header" style="width:100%;">
+              <div class="opener-left-menu is-open">
+                <span class="top"></span>
+                <span class="middle"></span>
+                <span class="bottom"></span>
+              </div>
+                <a href="{% url 'index' %}" class="navbar-brand"> 
+                 <b>Mendim</b>
+                </a>
+
+
+              <ul class="nav navbar-nav navbar-right user-nav" style="margin-right: 20px;">
+                <li class="user-name"><span>
+                {% if request.user.full_name %}
+                    {{request.user.full_name}}
+                {% else %}
+                    {{request.user.username}}
+                {% endif %}
+
+              </span></li>
+                  <li class="dropdown avatar-dropdown">
+                        {% if request.user.image %}
+                            <img src="{{ request.user.image.url }}" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
+                        {% else %}
+                          <img src="{% static 'asset/img/avatar.png' %}" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
+                        {% endif %}
+                   
+                   <ul class="dropdown-menu user-dropdown">
+                     <li><a href="{% url 'myProfile' %}"><span class="fa fa-user"></span> My Profile</a></li>
+
+                     <li role="separator" class="divider"></li>
+                     <li><a href="{% url 'logout' %}"><span class="fa fa-power-off "></span></a></li>
+                     <!-- <li class="more">
+                    </li> -->
+                  </ul>
+                </li>
+                <!-- <li ><a href="#" class="opener-right-menu"><span class="fa fa-coffee"></span></a></li> -->
+              </ul>
+            </div>
+          </div>
+        </nav>
+      <!-- end: Header -->
+
+      <div class="container-fluid mimin-wrapper">
+  
+          <!-- start:Left Menu -->
+            <div id="left-menu">
+              <div class="sub-left-menu scroll">
+                <ul class="nav nav-list">
+                    <li><div class="left-bg"></div></li>
+                    <li class="time">
+                     <!--  <h1 class="animated fadeInLeft">21:00</h1> -->
+                      <p class="animated fadeInRight" style="font-size: 15px; border-bottom: 3px solid #3498DB; border-top: 3px solid #F1948A;""> {{date}}
+                      </p>
+                    </li>
+                    <li class="{% if navActive == 'index' %}active{% endif %} ripple">
+                      <a href="{% url 'index' %}" class="nav-header">
+                        <span class="fa-home fa"></span> Dashboard</a>
+                
+                    </li>
+                    <li class="{% if navActive == 'upload_activation' or navActive == 'list_of_activation' or navActive == 'activate_code_upload' or navActive == 'excel_file' %}active
+                    {% endif %} ripple">
+                      <a class="tree-toggle nav-header">
+                        <span class="fa-clone fa"></span> Code Section
+                        <span class="fa-angle-right fa right-arrow text-right"></span>
+                      </a>
+                      <ul class="nav nav-list tree">
+                        <li><a href="{% url 'upload_activation' %}">Upload Code</a></li>
+                        <li><a href="{% url 'list_of_activation' %}">List of Code</a></li>
+                        
+                      </ul>
+                    </li>
+
+                    <li class="{% if navActive == 'createSales' or navActive == 'listOfSales' or navActive == 'salesOfSales' or navActive == 'editSaleProfile' %}active {% endif %} ripple">
+                      <a class="tree-toggle nav-header">
+                        <span class="fas fa-user-friends"></span>User Section
+                        <span class="fa-angle-right fa right-arrow text-right"></span>
+                      </a>
+                      <ul class="nav nav-list tree">
+                        <li><a href="{% url 'createSales' %}">Create User</a></li>
+                        <li><a href="{% url 'listOfSales' %}">List of User</a></li>
+                        <li><a href="{% url 'salesOfSales' %}">List of Scan User</a></li>
+                      </ul>
+                    </li>
+
+                    
+
+                    <li class="ripple {% if navActive == 'notification' %}active {% endif %}">
+                      <a class="tree-toggle nav-header">
+                        <span class="fas fa-bell"></span> Notification Section
+                        <span class="fa-angle-right fa right-arrow text-right"></span>
+                      </a>
+                      <ul class="nav nav-list tree">
+                        <li><a href="{% url 'messaging' %}">Send Notification</a></li>
+                        <li><a href="{% url 'messagingListTwo' %}">Notification List</a></li>
+                        <li><a href="{% url 'messagingList' %}">Notification List For User</a></li>
+                        
+                      </ul>
+                    </li>
+
+                    
+
+                    <li class="ripple {% if navActive == 'administration' %}active {% endif %}">
+                      <a class="tree-toggle nav-header">
+                        <span class="fas fa-cogs"></span> Administration
+                        <span class="fa-angle-right fa right-arrow text-right"></span>
+                      </a>
+                      <ul class="nav nav-list tree">
+                        <li><a href="{% url 'createAdmin' %}">Create Admin/Co-Admin</a></li>
+                        <li><a href="{% url 'listAdmin' %}">List of Admin & Co-Admin</a></li>
+                        <li><a href="{% url 'districtsOFbangladesh' %}">Product Name</a></li>
+                      
+                      </ul>
+                    </li>
+
+                    <li class="ripple {% if navActive == 'offersPage' %}active {% endif %}">
+                      <a class="tree-toggle nav-header">
+
+                        <span class="fas fa-box-open"></span> Reward
+                        <span class="fa-angle-right fa right-arrow text-right"></span>
+                      </a>
+                      <ul class="nav nav-list tree">
+                        <li><a href="{% url 'offersPage' %}">Upload Reward</a></li>
+                        <li><a href="{% url 'offerList' %}">Reward List</a></li>
+                      </ul>
+                    </li>
+
+              
+
+                   
+                  
+                  </ul>
+                </div>
+            </div>
+          <!-- end: Left Menu -->
+        {% block content %}
+        {% endblock %}
+      
+          
+      </div>
+
+
+      <button id="mimin-mobile-menu-opener" class="animated rubberBand btn btn-circle btn-danger">
+        <span class="fa fa-bars"></span>
+      </button>
+       <!-- end: Mobile -->
+
+    <!-- start: Javascript -->
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+    <!-- <script src="{% static 'asset/js/jquery.min.js' %}"></script> -->
+    <script src="{% static 'asset/js/jquery.ui.min.js' %}"></script>
+    <!-- <script src="{% static 'asset/js/bootstrap.min.js' %}"></script> -->
+   
+    <script type="text/javascript" src="{% static 'asset/js/jquery.popconfirm.js' %}"></script>
+    <!-- plugins -->
+    <script src="{% static 'asset/js/plugins/moment.min.js' %}"></script>
+    <script src="{% static 'asset/js/plugins/fullcalendar.min.js'%}"></script>
+    <script src="{% static 'asset/js/plugins/jquery.nicescroll.js' %}"></script>
+    <script src="{% static 'asset/js/plugins/jquery.vmap.min.js' %}"></script>
+    <script src="{% static 'asset/js/plugins/maps/jquery.vmap.world.js' %}"></script>
+    <script src="{% static 'asset/js/plugins/jquery.vmap.sampledata.js' %}"></script>
+    <!-- <script src="{% static 'asset/js/plugins/chart.min.js' %}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+
+<!--     <script src="{% static 'asset/js/plugins/flot/jquery.flot.min.js' %}"></script>
+    <script src="{% static 'asset/js/plugins/flot/jquery.flot.pie.min.js' %}"></script>
+    <script src="{% static 'asset/js/plugins/flot/jquery.flot.time.min.js' %}"></script>
+    <script src="{% static 'asset/js/plugins/flot/jquery.flot.navigate.min.js' %}"></script>
+    <script src="{% static 'asset/js/plugins/flot/jquery.flot.stack.min.js' %}"></script> -->
+
+    <script src="{% static 'asset/js/plugins/jquery.datatables.min.js' %}"></script>
+    <script src="{% static 'asset/js/plugins/datatables.bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'asset/js/plugins/jquery.nicescroll.js' %}"></script>
+
+
+    <!-- custom -->
+     <script src="{% static 'asset/js/main.js' %}"></script>
+
+     
+     
+  <!-- end: Javascript -->
+  </body>
+</html>

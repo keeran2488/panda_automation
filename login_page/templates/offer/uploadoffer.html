@@ -1,0 +1,140 @@
+{% extends 'deshbroad/base_site.html' %}
+{% load staticfiles%}
+{% block content %}
+
+<style type="text/css">
+  
+  .imageSize{
+    width: 160px;
+    height: 160px;
+  }
+
+</style>
+
+          <!-- start: Content -->
+            <div id="content">
+               <div class="panel box-shadow-none content-header">
+                  <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3 class="animated fadeInLeft">Reward Section</h3>
+                        <p class="animated fadeInDown">
+                          Page <span class="fa-angle-right fa"></span> Reward
+                        </p>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-12 top-20 padding-0">
+                <div class="col-md-12">
+                  <div class="panel">
+                    <div class="panel-heading"><h3>Reward</h3></div>
+                    <div class="panel-body">
+                      <div class="responsive-table">
+                        <div class="col-md-12 padding-0" style="margin-bottom: 10px;">
+
+                          <!-- <button type="button" class="btn btn-danger pull-right" style="margin-left: 10px;">Delete All Data</button>
+                          <button type="button" class="btn btn-primary pull-right">Export Data</button> -->
+                        </div>
+                        
+
+                       
+                            <div class="row">
+                            <div class="col-md-10 ">
+
+
+                                <form enctype="multipart/form-data" method="post" action="{% url 'offersPage' %}" class="form-horizontal">
+
+                                {% csrf_token %}
+
+                                <fieldset>
+
+                                <!-- Form Name -->
+                                <legend></legend>
+
+                      
+
+                                {% if exception %}
+                                <span class="label label-danger" style="font-size: 20px; margin-bottom: 20px; display: block;">{{exception}}</span>
+                                {% endif %}
+
+                                {% if success %}
+                                  <div class="alert alert-success" style=" padding: 20px;">
+                                    <strong>Success!</strong> {{success}}
+                                  </div>
+                                {% endif %}
+
+                                <div class="col-md-12">
+                                  <div class="form-group col-md-8" style="margin-left: 280px;">
+                                    <label class="sr-only" for="sel2">Tags</label>
+                                    <select multiple="multiple" id="sel2" class="form-control chosen-select" data-placeholder="Select Person To Send Reward" name="userSelect" onchange="myUser()">
+                                      {% for panda in panda %}
+                                        <option value="{{panda.user.id}}">{{panda.user.username}}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <!-- File Button --> 
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" for="Upload photo">Reward Image</label>
+                                  <div class="col-md-8">
+                                    <input id="photoID" name="image" class="input-file" type="file" required>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" for="comment">Reward Details</label>
+                                  <div class="col-md-8">
+                                    <textarea class="form-control" rows="5" name="reward_details" id="comment" required></textarea>
+                                  </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" ></label>  
+                                  <div class="col-md-4">
+                                  <button type="submit" class="btn btn-m btn-primary">Upload</button>
+                                  </div>
+                                </div>
+
+                                </fieldset>
+                                </form>
+                            </div>
+                          
+
+
+                            </div>
+                          
+                      </div>
+                  </div>
+                </div>
+              </div>  
+              </div>
+            </div>
+ 
+<!-- <script type="text/javascript">
+   
+
+  var _URL = window.URL || window.webkitURL;
+  $("#photoID").change(function (e) {
+      var file, img;
+      if ((file = this.files[0])) {
+          img = new Image();
+          img.onload = function () {
+              alert(this.width + " " + this.height);
+          };
+          img.src = _URL.createObjectURL(file);
+      }
+  });
+
+ </script> -->
+
+ <script type="text/javascript">
+    function myUser(){
+      $('.chosen-select').chosen('destroy')
+      $('#sel1').prop('disabled', true); 
+      $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
+    }
+    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"}); 
+</script>
+
+{% endblock %}

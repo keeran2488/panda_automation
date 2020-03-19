@@ -1,0 +1,210 @@
+
+{% extends 'deshbroad/base_site.html' %}
+{% load staticfiles%}
+{% block content %}
+
+
+	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/custom.css"> -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style type="text/css">
+		.section3 a i{font-size: 18px;}
+		.section3 a i:hover{color: #AEB6BF;}
+
+		.active-cyan-3{
+			border: 1px solid #45B39D;
+		}
+
+
+	</style>
+
+
+
+           <div id="content">
+               <div class="panel box-shadow-none content-header">
+                  <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3 class="animated fadeInLeft">Sales User Section</h3>
+                        <p class="animated fadeInDown">
+                          Table <span class="fa-angle-right fa"></span> List Of Sales User
+                        </p>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-12 top-20 padding-0">
+                <div class="col-md-12">
+                  <div class="panel">
+                    <div class="panel-heading"><h3>List Of Sales User</h3></div>
+                    <div class="panel-body">
+                      <div class="responsive-table">
+                        <div class="col-md-12 padding-0" style="margin-bottom: 10px; margin-bottom: 20px;">
+
+
+                        	
+	                            <div class="col-md-9 padding-0">
+	                                <div class="active-cyan-3 active-cyan-4 mb-4">
+	                                	{% csrf_token %}
+									    <input id="search" class="form-control" type="text" placeholder="Search" aria-label="Search" name="search_text">
+									</div>
+	                               
+	                            </div>
+	                        	<div class="col-md-3 padding-0">
+
+	                        	{% if request.user.is_admin %}
+		                          <button type="button" class="btn btn-danger pull-right link" style="margin-left: 10px;" onclick="location.href='{% url 'delete_saleProfile_all' %}'">Delete All Data</button>
+		                          <button type="button" class="btn btn-primary pull-right" onclick="location.href='{% url 'export_users_xl_sales' %}'">Export Data</button>
+		                        {% endif %}
+		                      	</div>
+                        </div>
+
+                        <div class="section-ourTeam">
+	
+							<div class="row">
+
+								{% for panda in panda %}
+								<div class="col-md-4 col-sm-4 col-xs-12">
+									
+										<div class="row section-danger ourTeam-box text-center">
+											<div class="col-md-12 section1">
+												{% if panda.image %}
+												    <img src="{{ panda.image.url }}">
+												{% else %}
+													<img src="{% static 'asset/img/avatar.png' %}">
+												{% endif %}
+											</div>
+											<div class="col-md-12 section2">
+												{% if panda.full_name %}
+													<p>{{panda.full_name}}</p>
+												{% elif panda.username %}
+													<p>{{panda.username}}</p>
+												{% endif %}
+
+												<span><i class="fa fa-home" aria-hidden="true"></i> {{panda.user_details.company_name}}</span><br>
+
+												<span><i class="fa fa-thumbtack" aria-hidden="true"></i> {{panda.user_details.company_address}}</span><br>
+
+												<span><i class="fa fa-phone-square" aria-hidden="true"></i> {{panda.user_details.phone_number}}</span><br>
+
+												<span><i class="fa fa-envelope" aria-hidden="true"></i> {{panda.email}}</span><br>
+
+												<!-- <a href="#">Total Sale: </label></a> -->
+												<label style="background-color: white;">
+													<button type="button" class="btn btn-primary">Total Sale: <span class="badge">{{panda.num_sale}}</span></button>
+												</label>
+											</div>
+											<div class="col-md-12 section3">
+												<a href="{% url 'editSaleProfile' panda.id %}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+												<a href="{% url 'salesInfoForUser' panda.id %}"><i class="fa fa-area-chart" aria-hidden="true"></i></a>
+									
+												{% if request.user.is_admin %}
+												<a href="{% url 'delete_saleProfile' panda.id %}" class="link"><i class="fa fa-trash" aria-hidden="true"></i></a>
+												{% endif %}
+												
+											</div>
+										</div>
+								</div>
+								{% endfor %}
+								
+
+							</div>
+						</div>
+
+                        
+                      
+                      </div>
+                  </div>
+                </div>
+              </div>  
+
+              <!-- Start pagination -->
+
+					{% if panda.has_other_pages %}
+					  <ul class="pagination pull-right" style="margin-right: 30px; margin-bottom: 40px;"> 
+					    {% if panda.has_previous %}
+					      
+					      <li><a href="?page={{ panda.previous_page_number }}">Previous</a></li>
+					      <li><a href="?page=1">1</a></li>
+					      <li><a href="?page=1">..</a></li>
+					    {% else %}
+					      <li class="disabled"><span>Previous</span></li>
+					    {% endif %}
+
+					    {% for i in panda.paginator.page_range %}
+					      {% if panda.number == i %}
+					        <li class="active"><span>{{ panda.number }} <span class="sr-only">(current)</span></span></li>
+					      {% else %}
+					      	{% if panda.next_page_number == i and i != panda.paginator.num_pages %}
+					        	<li><a href="?page={{ i }}">{{ i }}</a></li>
+					        {% endif %}
+					        {% if panda.previous_page_number == i and i != 1%}
+					        	<li><a href="?page={{ i }}">{{ i }}</a></li>
+					        {% endif %}
+					      {% endif %}
+					    {% endfor %}
+
+					    {% if panda.has_next %}
+
+					   	  <li><a href="?page=1">..</a></li>
+					      <li><a href="?page={{ panda.paginator.num_pages }}"">{{ panda.paginator.num_pages }}</a></li>
+					      <li><a href="?page={{ panda.next_page_number }}">Next</a></li>
+
+					      
+					    {% else %}
+					      <li class="disabled"><span>Next</span></li>
+					    {% endif %}
+					  </ul>
+					{% endif %}
+
+          <!-- End pagination -->
+
+              </div>
+            </div>
+          <!-- end: content -->
+
+          
+
+        <script type="text/javascript">
+			$(document).ready(function() {
+				// Basic confirmation
+				// $(".link").popConfirm();
+				
+				// Custom Title, Content and Placement
+				$(".link").popConfirm({
+					title: "Delete",
+					content: "Are You Sure?",
+					placement: "bottom"
+				});
+			});
+		</script>
+
+<script type="text/javascript">
+	$(function(){
+
+	    	$("#search").keyup(function(){
+		        $.ajax({
+		            method: 'post',
+		            url: "{% url 'search_salesUser' %}",
+		            data:{
+		        		search_text : $("#search").val(),
+		        		csrfmiddlewaretoken : $('input[name=csrfmiddlewaretoken]').val()
+		        	},
+		            success: function(data) {
+		                $(".section-ourTeam").html(data);
+		                // alert('ss');
+		            },
+		            error: function(e) {
+		                alert('Error' + e);
+		            }
+        		});
+		});
+
+	    
+
+
+	});
+
+</script>
+
+
+{% endblock %}

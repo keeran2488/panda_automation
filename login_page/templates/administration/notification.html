@@ -1,0 +1,227 @@
+
+
+{% extends 'deshbroad/base_site.html' %}
+{% block content %}
+
+<style type="text/css">
+	
+
+	.form-group h1 { color: #34495E; font-family: 'Righteous', cursive; font-size: 20px; font-weight: bold; line-height: 20px; margin: 10px 0 20px; text-transform: uppercase; text-shadow: 2px 2px 0 #000, margin: 10px 0 24px; text-align: left;  padding-top: 30px;}
+
+	.form-group input[type="password"]{
+		border: none;
+		width: 100%;
+		height: 30px;
+		background: #A3E4D7;
+	}
+
+	.add-on .input-group-btn > .btn {
+  border-left-width:0;left:-2px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+/* stop the glowing blue shadow */
+.add-on .form-control:focus {
+ box-shadow:none;
+ -webkit-box-shadow:none; 
+ border-color:#cccccc; 
+}
+
+/* enable absolute positioning */
+.inner-addon {
+  position: relative;
+}
+
+/* style glyph */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align glyph */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+/* align button at bottom */
+.vertical-align-bottom { vertical-align: bottom !important; }
+
+.form-check-input{font-size: 20px; padding: 0;margin:0; margin-top: 40px; color: #2C3E50;}
+
+/*Contact sectiom*/
+.content-header1{
+  font-family: 'Oleo Script', cursive;
+  color:#fcc500;
+  font-size: 45px;
+}
+
+.section-content{
+  text-align: center; 
+
+}
+#contact{
+    
+  font-family: 'Teko', sans-serif;
+  padding-top: 60px;
+  height: 580px;
+  background: #3a6186; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #3a6186 , #89253e); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #3a6186 , #89253e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color : #fff;   
+
+}
+
+
+.form-line{
+  border-right: 1px solid #B29999;
+}
+
+.form-group{
+  margin-top: 10px;
+}
+label{
+  font-size: 1.3em;
+  line-height: 1em;
+  font-weight: normal;
+}
+.form-control{
+  font-size: 1.3em;
+  color: #080808;
+}
+textarea.form-control {
+    height: 135px;
+   /* margin-top: px;*/
+}
+
+.submit{
+  font-size: 1.1em;
+  float: right;
+  width: 150px;
+  background-color: transparent;
+  color: #fff;
+
+}
+
+
+</style>
+
+<div id="content">
+                <div class="panel box-shadow-none content-header">
+                  <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3 class="animated fadeInLeft">Notification Section</h3>
+                        <p class="animated fadeInDown">
+                          Notification <span class="fa-angle-right fa"></span> Send
+                        </p>
+                    </div>
+                  </div>
+                </div>
+
+
+
+    {% if success %}
+      <div class="alert alert-success" style=" padding: 20px;">
+        <strong>Success!</strong> {{success}}
+      </div>
+    {% endif %}
+
+		<div class="col-md-12 padding-0">
+				
+				<section id="contact">
+					<div class="section-content padding-0">
+						<h1 class="section-header"><span class="content-header1 wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> Notification</span></h1>
+					
+					</div>
+					
+					
+						<form enctype="multipart/form-data" method="post">
+							{% csrf_token %}
+					  		<div class="col-md-6 col-md-offset-3 padding-0">
+
+             <!--      <div class="form-group">
+                    <label class="sr-only" for="sel1">District</label>
+                    
+                    <select multiple="multiple" class="form-control chosen-select" id="sel1" data-placeholder="Select District To Send Message" name="districtSelect" onchange="myDistrict()"> -->
+
+                      <!-- <option selected="selected"> ----- </option> -->
+                      <!-- {% for district in district %}
+                        <option value="{{district.id}}">{{district.district_name}}</option>
+                      {% endfor %}
+                    </select>
+                  </div> -->
+<!-- 
+                  <div class="form-group">
+                    <label>OR</label>
+                  </div> -->
+
+                  <div class="form-group">
+                    <label class="sr-only" for="sel2">Tags</label>
+                    <select multiple="multiple" id="sel2" class="form-control chosen-select" data-placeholder="Select Person To Send Message" name="userSelect" onchange="myUser()">
+                      {% for panda in panda %}
+                        <option value="{{panda.user.id}}">{{panda.user.username}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+
+					  			<div class="form-group">
+							    	<label for="telephone">Titel</label>
+							    	<input type="text" class="form-control" name="titel" id="telephone" placeholder="Titel" required>
+					  			</div>
+
+					  			<div class="form-group">
+					  				<label for ="description">Message</label>
+					  			 	<textarea  class="form-control" id="description" name="message" placeholder="Enter Your Message (Maximum 255 Letter)" required></textarea>
+					  			</div>
+					  			<div>
+
+					  				<button type="submit" class="btn btn-primary submit" style="color: #fff;"><i class="fa fa-paper-plane" aria-hidden="true"></i>  Send Message</button>
+                      
+					  			</div>
+					  	
+							</div>
+              
+						</form>
+					
+				</section>
+
+		</div>
+
+	
+
+
+</div>
+
+<script type="text/javascript">
+  
+   
+
+   // function myDistrict(){
+      // document.getElementById("sel2").disabled = true;
+      // $(".chosen-select2").disabled = true;
+      // $('.chosen-select').chosen('destroy')
+      // $('#sel2').prop('disabled', true);
+      // $(".chosen-select2").chosen({no_results_text: "Oops, nothing found!"}); 
+    //   $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
+
+    // }
+
+    function myUser(){
+      // document.getElementById("sel2").disabled = true;
+      // $(".chosen-select2").disabled = true;
+      $('.chosen-select').chosen('destroy')
+      $('#sel1').prop('disabled', true);
+      // $(".chosen-select2").chosen({no_results_text: "Oops, nothing found!"}); 
+      $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
+
+    }
+
+    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"}); 
+
+</script>
+
+{% endblock %}

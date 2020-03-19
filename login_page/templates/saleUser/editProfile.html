@@ -1,0 +1,198 @@
+{% extends 'deshbroad/base_site.html' %}
+{% load staticfiles%}
+{% block content %}
+
+<style type="text/css">
+  
+  .imageSize{
+    width: 160px;
+    height: 160px;
+  }
+
+</style>
+
+
+
+          <!-- start: Content -->
+            <div id="content">
+               <div class="panel box-shadow-none content-header">
+                  <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3 class="animated fadeInLeft">Sales User Section</h3>
+                        <p class="animated fadeInDown">
+                          Detail <span class="fa-angle-right fa"></span>Sales User
+                        </p>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-12 top-20 padding-0">
+                <div class="col-md-12">
+                  <div class="panel">
+                    <div class="panel-heading"><h3>Sales User</h3></div>
+                    <div class="panel-body">
+                      <div class="responsive-table">
+                        <div class="col-md-12 padding-0" style="margin-bottom: 10px;">
+
+                          <!-- <button type="button" class="btn btn-danger pull-right" style="margin-left: 10px;">Delete All Data</button>
+                          <button type="button" class="btn btn-primary pull-right">Export Data</button> -->
+                        </div>
+                        
+
+                       
+                            <div class="row">
+                            <div class="col-md-10 ">
+
+
+                                <form enctype="multipart/form-data" method="post" class="form-horizontal">
+
+                                {% csrf_token %}
+
+                                <fieldset>
+
+                                <!-- Form Name -->
+                                <legend></legend>
+
+                                {% if exception %}
+                                <span class="label label-danger" style="font-size: 20px; margin-bottom: 20px; display: block;">{{exception}}</span>
+                                {% endif %}
+
+                                {% if success %}
+                                  <div class="alert alert-success" style=" padding: 20px;">
+                                    <strong>Success!</strong> {{success}}
+                                  </div>
+                               {% endif %}
+
+                                <!-- Text input-->
+                                {% for panda in panda %}
+
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" for="Name (Full name)">Username</label>  
+                                  <div class="col-md-4">
+                                 <div class="input-group">
+                                       <div class="input-group-addon">
+                                        <i class="fa fa-user">
+                                        </i>
+                                       </div>
+                                       <input id="usernameID" name="username" type="text" placeholder="Username" class="form-control input-md" value="{{ panda.username }}">
+                                      </div>
+                                  </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" for="Email Address">Email Address</label>  
+                                  <div class="col-md-4">
+                                  <div class="input-group">
+                                       <div class="input-group-addon">
+                                     <i class="fa fa-envelope-o"></i>
+                                        
+                                       </div>
+                                    <input id="EmailID" name="email" type="text" placeholder="Email Address" class="form-control input-md" value="{{ panda.email }}">
+                                    
+                                      </div>
+                                  
+                                  </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label"></label>  
+                                  <div class="col-md-4">
+                                  <div class="input-group">
+                                       
+                                        <a href="{% url 'password_reset' panda.id %}" type="button" class="btn btn-primary btn-lg">Reset Password</a>
+                                    
+                                      </div>
+                                  
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label"></label>  
+                                  <div class="col-md-4">
+                                  <div class="input-group">
+                                       
+                                  </div>
+                                  </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" for="Name (Full name)">Name (Full name)</label>  
+                                  <div class="col-md-4">
+                                 <div class="input-group">
+                                       <div class="input-group-addon">
+                                        <i class="fa fa-user">
+                                        </i>
+                                       </div>
+                                       <input id="NameID" name="full_name" type="text" placeholder="Name (Full name)" class="form-control input-md" value="{{ panda.full_name }}">
+                                      </div>
+
+                                    
+                                  </div>
+                                </div>
+
+                                <!-- File Button --> 
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" for="Upload photo">Upload photo</label>
+                                  <div class="col-md-4">
+                                    <input id="photoID" name="image" class="input-file" type="file">
+                                  </div>
+                                </div>
+
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" for="Phone number ">Phone number </label>  
+                                  <div class="col-md-4">
+                                  <div class="input-group">
+                                    <div class="input-group-addon">
+                                     <i class="fa fa-phone"></i> 
+                                    </div>
+                                    <input id="PhoneID" name="phn_num" type="text" placeholder="Phone number" class="form-control input-md" value="{{ panda.user_details.phone_number }}">
+                                  </div>
+                                  
+                                  </div>
+                                </div>
+
+                                <!-- Textarea -->
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" for="company_addID">Company Address</label>
+                                  <div class="col-md-4">                     
+                                    <textarea class="form-control" rows="10"  id="company_addID" name="company_add">{{ panda.user_details.company_address }}</textarea>
+                                  </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label" ></label>  
+                                  <div class="col-md-4">
+                                  <button type="submit" class="btn btn-m btn-primary">Submit</button>
+                                    
+                                  </div>
+                                </div>
+
+                                </fieldset>
+                                </form>
+                            </div>
+                            <div class="col-md-2 hidden-xs">
+                              {% if panda.image %}
+                                  <img src="{{ panda.image.url }}" class="imageSize">
+                              {% else %}
+                                  <img src="{% static 'asset/img/avatar.png' %}" class="imageSize">
+                              {% endif %}
+
+                            </div>
+
+
+                            </div>
+                            {% endfor %}
+                      </div>
+                  </div>
+                </div>
+              </div>  
+              </div>
+            </div>
+ 
+
+{% endblock %}

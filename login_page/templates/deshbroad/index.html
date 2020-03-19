@@ -1,0 +1,201 @@
+{% extends 'deshbroad/base_site.html' %}
+{% block content %}
+
+
+<style type="text/css">
+  
+  ul.dropdown-menu li.yearClass{
+      cursor: pointer; 
+      padding: 8px; 
+      color: black;
+      font-weight: bold;
+      text-align: center;
+  }
+
+  ul.dropdown-menu li.yearClass:hover{
+    background-color: #EBEDEF;
+    color: #273746;
+  }
+
+</style>
+
+
+<!-- start: Content -->
+          <div id="content">
+            <div class="col-md-12 padding-0">
+              <div class="col-md-12 padding-0">
+                <div class="col-md-12 padding-0">
+                  <div class="panel box-shadow-none content-header">
+                      <div class="panel-body">
+                        <div class="col-md-12">
+                            <h3 class="animated fadeInLeft">Dashboard</h3>
+                            <p class="animated fadeInDown" style="line-height:.4;">
+                              Welcome To Adminpanel
+                            </p>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                
+              <div class="col-md-12">
+
+                <div class="panel">
+                      <div class="panel-heading">
+                        <h4>Current Scan</h4>
+                      </div>
+                      <div class="panel-body">
+                        <div class="col-md-12 responsive-table">
+                            <table class="table table-hover">
+                              <tr>
+                                <th>No</th>
+                                <th>User</th>
+                                
+                                <th>Code</th>
+                                <th>Product Type</th>
+                                <th>Scan Date</th>
+                                <th>Status</th>
+                              </tr>
+                              {% for saleInfo in saleInfo %}
+                              <tr>
+                                <td>{{ forloop.counter }} </td>
+                                
+                                {% if saleInfo.user.full_name %}
+                                      <td>{{saleInfo.user.full_name}}</td>
+                                {% elif saleInfo.user %}
+                                    <td>{{saleInfo.user}}</td>
+                                {% endif %}
+
+                                <td>{{saleInfo.activation.file}}</td>
+                                <td>{{saleInfo.activation.product_type}}</td>
+                                <td>{{saleInfo.date}}</td>
+                    
+
+                                {% if saleInfo.activation.active_check == True %}
+                                <td><span class="label label-danger">Scan</span></td>
+                               
+                                {% else %}
+                                <td><span class="label label-primary">New</span></td>
+                                {% endif %}
+                                
+                              </tr>
+                              {% endfor %}
+                            
+                            </table>
+                            <center>
+                              <div class="btn-group" role="group" aria-label="..." style="margin-top:20px;">
+                                      <button type="button" class="btn" onclick="location.href='{% url 'salesOfSales' %}'">
+                                        <span>More</span>
+                                      </button>
+                              </div>
+                            </center>
+                        </div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <div class="col-md-6">
+                
+                <div class="panel box-v6">
+                     <div class="panel-heading">
+                       <h4>Top Score
+                        <span class="icon-options-vertical icons pull-right"></span>
+                      </h4>
+                     </div>
+                    <div class="panel-body padding-0">
+                      {% for panda in panda %}
+                      <div class="col-md-12 padding-0">
+                          <div class="col-md-12 padding-0" style="height:127px;">
+                            <div class="col-md-12 col-sm-12 box-v6-content-bg" data-progress="">
+                              
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 padding-0 box-v6-content">
+                              <div class="col-md-10 col-sm-10 col-xs-10">
+                                <img src="{{ panda.image.url }}" style="width: 50px; height: 50px;" />
+
+
+                                <h4>{{ panda.full_name }}</h4>
+                                <p>{{ panda.last_login }}</p>
+                              </div>
+                              <div class="col-md-2 col-sm-2 hidden-xs text-center box-v6-progress">
+                                <h3>{{ panda.num_sale }}</h3>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      {% endfor %}
+                      
+                    </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-6">
+                  <div class="panel money-ex text-center">
+                      <div class="panel-heading">
+                        <h4>Scan Code Pie Chart</h4>
+                      </div>
+                      <div class="panel-body">
+                                
+                        <div class="col-md-12">
+                         <!-- <div id="multi-axes-chart" style="height:240px;"></div> -->
+                          <canvas id="myChartPie" style="width: 400px; height: 400px;"></canvas>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- end: Content -->
+
+
+
+
+
+<script type="text/javascript">
+       $( document ).ready(function() {
+
+          var ctx2 = document.getElementById('myChartPie').getContext('2d');
+            var myPieChart = new Chart(ctx2,{
+                type: 'pie',
+                data: {
+                  datasets: [{
+                      data: [
+
+
+                      {% for infoSalesActive in infoSalesActive %}
+                        {{infoSalesActive.Active_count}}
+                      {% endfor %},
+
+                      {% for infoTotalNew in infoTotalNew %}
+                        {{infoTotalNew.Active_count}}
+                      {% endfor %},
+
+                      ],
+                      backgroundColor: [
+                          
+                          "#3498DB",
+                          "#E74C3C"
+                      ]
+                  }],
+                  labels: [
+                      
+                      'Scan',
+                      'New',
+                  ],
+                  
+
+                },
+                options: {}
+            });
+
+            
+
+        });
+
+     </script>
+
+
+{% endblock %}

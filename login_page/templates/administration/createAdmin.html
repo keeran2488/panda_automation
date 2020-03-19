@@ -1,0 +1,134 @@
+
+
+{% extends 'deshbroad/base_site.html' %}
+{% block content %}
+
+<style type="text/css">
+	
+
+	.form-group h1 { color: #34495E; font-family: 'Righteous', cursive; font-size: 20px; font-weight: bold; line-height: 20px; margin: 10px 0 20px; text-transform: uppercase; text-shadow: 2px 2px 0 #000, margin: 10px 0 24px; text-align: left;  padding-top: 30px;}
+
+	.form-group input[type="password"]{
+		border: none;
+		width: 100%;
+		height: 30px;
+		background: #A3E4D7;
+	}
+
+	.add-on .input-group-btn > .btn {
+  border-left-width:0;left:-2px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+/* stop the glowing blue shadow */
+.add-on .form-control:focus {
+ box-shadow:none;
+ -webkit-box-shadow:none; 
+ border-color:#cccccc; 
+}
+
+/* enable absolute positioning */
+.inner-addon {
+  position: relative;
+}
+
+/* style glyph */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align glyph */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+/* align button at bottom */
+.vertical-align-bottom { vertical-align: bottom !important; }
+
+.form-check-input{font-size: 20px; padding: 0;margin:0; margin-top: 40px; color: #2C3E50;}
+
+
+</style>
+
+<div id="content">
+                <div class="panel box-shadow-none content-header">
+                  <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3 class="animated fadeInLeft">Admin & Co-Admin Create Section</h3>
+                        <p class="animated fadeInDown">
+                          Admin & Co-Admin User <span class="fa-angle-right fa"></span> Create
+                        </p>
+                    </div>
+                  </div>
+                </div>
+
+
+         {% if form.errors %}
+         	<div class="alert alert-danger">
+			  <strong>{{ form.errors }}</strong>
+			</div>
+         {% endif %}
+
+         {% if errorCreate %}
+         	<div class="alert alert-danger">
+			  <strong>{{ errorCreate }}</strong>
+			</div>
+         {% endif %}
+
+         {% if error %}
+
+	        <div class="alert alert-info" style="font-size: 20px;">
+				  <strong>Info!</strong> {{error}}
+			</div>
+
+         {% endif %}
+
+    {% if request.user.is_admin %}
+        {% if success %}
+	        <div class="alert alert-success" style=" padding: 20px;">
+				<strong>Success!</strong> {{success}}
+			</div>
+		{% endif %}
+
+		<div class="col-md-12" style="padding: 100px; background: #FADBD8;">
+			<form enctype="multipart/form-data" method="post">
+
+				{% csrf_token %}
+				<!-- <div class="form-group">
+				    <label for="exampleInputEmail1">Email address</label>
+				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+				 	<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  				</div> -->
+				
+
+				{% for form in form %}
+					<div class="form-group">
+						{% if forloop.counter0 == 2 %}
+							<label for="{{form.id_for_label}}" style="color: #E74C3C;">Password</label>
+						{% endif %}
+						{% if forloop.counter0 == 3 %}
+						<label for="{{form.id_for_label}}" style="color: #E74C3C;">Conform Password</label>
+						{% endif %}
+
+						{{form}}
+						
+					</div>
+				{% endfor %}
+				<br>
+				<br>
+				<button type="submit" class="btn btn-m btn-primary pull-right">Submit</button>
+				<!-- <input type="submit" name="submit"/> -->
+
+			</form>
+
+		</div>
+	{% endif %}
+	
+</div>
+
+{% endblock %}

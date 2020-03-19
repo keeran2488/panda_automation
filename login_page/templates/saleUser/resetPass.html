@@ -1,0 +1,113 @@
+{% extends 'deshbroad/base_site.html' %}
+{% load staticfiles%}
+{% block content %}
+
+<style type="text/css">
+  
+  .imageSize{
+    width: 160px;
+    height: 160px;
+
+
+  }
+
+  .form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span {
+    width: 20px;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+    display: none;
+}
+.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+    display: inline-block;   
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+    display: none;   
+}
+
+</style>
+
+
+
+          <!-- start: Content -->
+            <div id="content">
+               <div class="panel box-shadow-none content-header">
+                  <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3 class="animated fadeInLeft">Sales User Section</h3>
+                        <p class="animated fadeInDown">
+                          Password <span class="fa-angle-right fa"></span>Reset User
+                        </p>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-12 top-20 padding-0">
+                <div class="col-md-12">
+                  <div class="panel">
+                    <div class="panel-heading"><h3>Reset Password</h3></div>
+                    <div class="panel-body">
+                      <div class="responsive-table">
+                        <div class="col-md-12 padding-0" style="margin-bottom: 10px;">
+
+                          <!-- <button type="button" class="btn btn-danger pull-right" style="margin-left: 10px;">Delete All Data</button>
+                          <button type="button" class="btn btn-primary pull-right">Export Data</button> -->
+                        </div>
+                        
+
+                       
+<div class="row">
+<div class="col-md-10 ">
+  <form enctype="multipart/form-data" method="post" class="text-center border border-light p-5">
+    {% csrf_token %}
+  
+
+    <!-- Password -->
+    <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" name="passwordReset">
+
+
+
+    <div class="[ form-group ]" style="margin-top: 20px;">
+            <input type="checkbox" name="fancy-checkbox-primary" id="fancy-checkbox-primary" autocomplete="off" />
+            <div class="[ btn-group ]" onclick="ShowPassword()">
+                <label for="fancy-checkbox-primary" class="[ btn btn-primary ]">
+                    <span class="[ glyphicon glyphicon-ok ]"></span>
+                    <span> </span>
+                </label>
+                <label for="fancy-checkbox-primary" class="[ btn btn-default active ]">
+                    Show Password
+                </label>
+            </div>
+    </div>
+
+    <br>
+    <!-- Sign in button -->
+    <button class="btn btn-warning my-4" type="submit">Change Password</button>
+    
+
+
+  </form>
+</div>
+</div>
+
+<script type="text/javascript">
+  
+  function ShowPassword() {
+    var x = document.getElementById("defaultLoginFormPassword");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+</script>
+
+{% endblock %}

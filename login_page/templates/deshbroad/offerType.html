@@ -1,0 +1,165 @@
+{% extends 'deshbroad/base_site.html' %}
+{% block content %}
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<style type="text/css">
+  
+  /****** CODE ******/
+
+.file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 12px;}
+.file-upload .file-select{display:block;border: 2px solid #dce4ec;color: #16A085; font-weight: bold; cursor:pointer;height:40px;line-height:40px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select .file-select-button{background:#dce4ec;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+.file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select{border-color:#3fa46a;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select .file-select-button{background:#3fa46a;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;left:0;opacity:0;filter:alpha(opacity=0);}
+.file-upload .file-select.file-select-disabled{opacity:0.65;}
+.file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select.file-select-disabled:hover .file-select-button{background:#dce4ec;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+
+/*Loader*/
+.loader {
+  display: none;
+  border: 13px solid #E74C3C;
+  border-radius: 50%;
+  border-top: 13px solid #45B39D;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  margin-left: 50%;
+  margin-top: 5px;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*progress*/
+
+
+</style>
+
+
+ <!-- start: Content -->
+            <div id="content">
+                <div class="panel box-shadow-none content-header">
+                  <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3 class="animated fadeInLeft">Bonus Rate</h3>
+                        <p class="animated fadeInDown">
+                          Update <span class="fa-angle-right fa"></span> Bonus Rate
+                        </p>
+                    </div>
+                  </div>
+                </div>
+
+                {% if success %}
+                    <div class="alert alert-success" style=" padding: 20px;">
+                      <strong>Success!</strong> {{success}}
+                    </div>
+                {% endif %}
+                {% if error %}
+                    <div class="alert alert-danger">
+                      <strong>{{ error }}</strong>
+                    </div>
+                {% endif %}
+                      
+            
+                    <div class="col-md-12 panel-body" style="padding-bottom:30px;">
+                      <div class="col-md-12" style="background: #FADBD8; padding: 30px; border-radius: 20px;">
+                        
+
+                        <form action="{% url 'OfferType' %}" class="cmxform" id="Activation_form" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+
+                        
+                          {% for panda in panda %}
+                          <div class="col-md-12" style="margin-top: 30px;">
+                            <div class="col-sm-6 padding-0">
+                              <div class="form-group">
+                                <div class="col-sm-12 padding-0"><input type="text" class="form-control primary" placeholder="{{ panda.offer_name }}" name="offerType1" id="promoCodeLen" value="{{ panda.offer_name }}" ></div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endfor %}
+
+                          {% for panda2 in panda2 %}
+                          <div class="col-md-12" style="margin-top: 30px;">
+                            <div class="col-sm-6 padding-0">
+                              <div class="form-group">
+                                <div class="col-sm-12 padding-0"><input type="text" class="form-control primary" placeholder="{{ panda2.offer_name }}" name="offerType2" id="promoCodeLen" value="{{ panda2.offer_name }}" ></div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endfor %}
+
+                          {% for panda3 in panda3 %}
+                          <div class="col-md-12" style="margin-top: 30px;">
+                            <div class="col-sm-6 padding-0">
+                              <div class="form-group">
+                                <div class="col-sm-12 padding-0"><input type="text" class="form-control primary" placeholder="{{ panda3.offer_name }}" name="offerType3" id="promoCodeLen" value="{{ panda3.offer_name }}" ></div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endfor %}
+
+                          <div class="col-md-12" style="margin-top: 20px; margin-right: 40px; margin-bottom: 10px;">
+                              <input class="submit btn btn-primary pull-left btn-lg" type="submit" value="Update">
+                          </div>
+                      </form>
+                      
+<!-- <input type="button" value="Click Me" onclick="functionAlert();" /> -->
+
+                    </div>
+                  </div>
+                </div>
+
+<!-- Alert Box -->
+
+      <style>
+         #confirm {
+            display: none;
+            background-color: #FDFEFE;
+            color: #000000;
+            /*border: 1px solid #aaa;*/
+            position: fixed;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            width: 300px;
+            height: 100px;
+            left: 50%;
+            top: 50%;
+            box-sizing: border-box;
+            text-align: center;
+         }
+         
+         #confirm .message {
+            text-align: center;
+            font-weight: bold;
+            /*background: #EAEDED;*/
+            color: #E74C3C;
+            display: block;
+            margin-top: 15px;
+         }
+</style>
+
+
+
+{% endblock %}
